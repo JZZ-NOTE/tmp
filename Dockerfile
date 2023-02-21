@@ -28,10 +28,10 @@ RUN apt-get update --allow-unauthenticated && \
 
 WORKDIR /usr/bin 
 # install tensorrt
-#RUN wget -q https://paddle-qa.bj.bcebos.com/nvidia/trt/TensorRT-8.2.4.2.tgz --no-check-certificate \
-#    && tar -xvf TensorRT-8.2.4.2.tgz -C /usr/local \
-#    && cp -rf /usr/local/TensorRT-8.2.4.2/include/* /usr/include/ && cp -rf /usr/local/TensorRT-8.2.4.2/lib/* /usr/lib/ \
-#    && rm -f TensorRT-8.2.4.2.tgz
+RUN wget -q https://paddle-qa.bj.bcebos.com/nvidia/trt/TensorRT-8.2.4.2.tgz --no-check-certificate \
+    && tar -xvf TensorRT-8.2.4.2.tgz -C /usr/local \
+    && cp -rf /usr/local/TensorRT-8.2.4.2/include/* /usr/include/ && cp -rf /usr/local/TensorRT-8.2.4.2/lib/* /usr/lib/ \
+    && rm -f TensorRT-8.2.4.2.tgz
 RUN git clone -b 0.15.0 https://github.com/NixOS/patchelf patchelf_tmp \
     && cd patchelf_tmp \
     && ./bootstrap.sh \
@@ -42,14 +42,14 @@ RUN git clone -b 0.15.0 https://github.com/NixOS/patchelf patchelf_tmp \
     && rm -rf patchelf_tmp 
 
 # cudnn8.1.1 -> cudnn8.2.1
-#RUN rm -rf /usr/include/cudnn* && rm -rf /usr/lib/x86_64-linux-gnu/libcudnn* 
-#RUN wget -q https://paddle-ci.gz.bcebos.com/cudnn/cudnn-11.3-linux-x64-v8.2.1.32.tgz --no-check-certificate && \
-#    tar -xvf cudnn-11.3-linux-x64-v8.2.1.32.tgz && \
-#    cd cuda && \
-#    cp -r include /usr && \
-#    cp lib64/* /usr/lib/x86_64-linux-gnu/ && cd ../ && \
-#    rm -f cudnn-11.3-linux-x64-v8.2.1.32.tgz && \
-#    rm -rf cuda
+RUN rm -rf /usr/include/cudnn* && rm -rf /usr/lib/x86_64-linux-gnu/libcudnn* 
+RUN wget -q https://paddle-ci.gz.bcebos.com/cudnn/cudnn-11.3-linux-x64-v8.2.1.32.tgz --no-check-certificate && \
+    tar -xvf cudnn-11.3-linux-x64-v8.2.1.32.tgz && \
+    cd cuda && \
+    cp -r include /usr && \
+    cp lib64/* /usr/lib/x86_64-linux-gnu/ && cd ../ && \
+    rm -f cudnn-11.3-linux-x64-v8.2.1.32.tgz && \
+    rm -rf cuda
 
 # install cmake
 WORKDIR /home
